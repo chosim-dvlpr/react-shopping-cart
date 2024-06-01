@@ -48,7 +48,7 @@ function CouponModalContent({ toggleModal }: CouponModalContentProps) {
     updateSelectedCoupons();
   };
 
-  const handleIsAvailable = (coupon: Coupon): boolean => {
+  const isCouponAvailable = (coupon: Coupon): boolean => {
     if (getCheckedCount() >= ORDER.availableCouponCount && !coupon.isChecked)
       return false;
     return coupon.buyQuantity
@@ -58,7 +58,7 @@ function CouponModalContent({ toggleModal }: CouponModalContentProps) {
   };
 
   const handleCouponChecked = (id: number, coupon: Coupon) => () => {
-    if (!handleIsAvailable(coupon)) return;
+    if (!isCouponAvailable(coupon)) return;
     toggleCouponCheck(id);
   };
 
@@ -70,7 +70,7 @@ function CouponModalContent({ toggleModal }: CouponModalContentProps) {
           {coupons.map((coupon) => (
             <CouponModalCard
               key={coupon.id}
-              isAvailable={handleIsAvailable(coupon)}
+              isAvailable={isCouponAvailable(coupon)}
               name={coupon.description}
               expirationDate={coupon.expirationDate}
               minimumAmount={coupon.minimumAmount}
